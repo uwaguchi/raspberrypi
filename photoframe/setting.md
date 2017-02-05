@@ -10,6 +10,7 @@ git pull origin
 crontab -e
 ```
 ```
+0 5 * * * /home/uwaguchi/raspberrypi/photoframe/createfilelist.sh
 30 6 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_start.sh
 30 7 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_stop.sh
 0 19 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_start.sh
