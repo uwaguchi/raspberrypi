@@ -14,7 +14,7 @@ crontab -e
 30 6 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_start.sh
 30 7 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_stop.sh
 0 19 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_start.sh
-30 23 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_stop.sh
+0 23 * * * /home/uwaguchi/raspberrypi/photoframe/photoframe_stop.sh
 ```
 #### バックライト制御だけは root でないと動かないので仕方なく別途 root で実行
 ```
