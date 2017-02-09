@@ -47,18 +47,29 @@ if __name__ == '__main__':
     # 今日
     targetdate = date.today()
     #targetdate = datetime(2017,1,21)
+    #targetdate = datetime(2016,8,31)
 
     # 今日のイベントリストを取得
     cureventdata = getEventList( targetdate )
     
     for curevent in cureventdata:
-        print curevent["guid"]
-        print curevent["title"]
-        print curevent["startDate"]
-        print curevent["endDate"]
+        outstr = "今日は"
+        outstr += str( curevent["startDate"][4] )
+        outstr += "時"
+        if curevent["startDate"][5] != 0:
+            outstr += str( curevent["startDate"][5] )
+            outstr += "分"
+        outstr += "から"
+        outstr += curevent["title"].encode( "utf-8" )
+        outstr += "があるよ！"
+
+        print outstr
 
 
-    # LINE に飛ばす
+    # LINE に飛ばすとか
+
+
+    # スピーカーでしゃべってもらうとか
 
 
 
