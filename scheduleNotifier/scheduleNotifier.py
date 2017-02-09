@@ -14,7 +14,6 @@ api = PyiCloudService(accounts[0].rstrip("\n"), accounts[1].rstrip("\n"))
 # 指定日のイベントデータを取得
 def getEventList( targetdate ):
     # 指定日に属するイベントデータを取得 
-    #eventlist = api.calendar.events(targetdate, targetdate + timedelta(days=1))
     eventlist = api.calendar.events(targetdate, targetdate)
 
     # イベントデータオブジェクトリスト
@@ -43,17 +42,19 @@ def getEventList( targetdate ):
 
 if __name__ == '__main__':
 
-    # 取得対象日付
-    # 今日
-    targetdate = date.today()
-    #targetdate = datetime(2017,1,21)
+    # 基準日
+    #targetdate = date.today()
     #targetdate = datetime(2016,8,31)
+    targetdate = datetime(2017,1,20)
 
-    # 今日のイベントリストを取得
-    cureventdata = getEventList( targetdate )
-    
-    for curevent in cureventdata:
-        outstr = "今日は"
+    # 明日のイベントリストを取得
+    targeteventdata = getEventList( targetdate + timedelta(days=1))
+
+    outstr = ""
+    for curevent in targeteventdata:
+        if outstr != "":
+            outstr += "　あと、"
+        outstr += "あしたは"
         outstr += str( curevent["startDate"][4] )
         outstr += "時"
         if curevent["startDate"][5] != 0:
@@ -63,11 +64,8 @@ if __name__ == '__main__':
         outstr += curevent["title"].encode( "utf-8" )
         outstr += "があるよ！"
 
-        print outstr
-
-
     # LINE に飛ばすとか
-
+    print outstr
 
     # スピーカーでしゃべってもらうとか
 
