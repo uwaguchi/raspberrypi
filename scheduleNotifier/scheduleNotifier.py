@@ -3,17 +3,21 @@ from pyicloud import PyiCloudService
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
+import os
 import requests
 
+# 自分自身のディレクトリ
+scriptdir = os.path.dirname(os.path.abspath(__file__))
+
 # アカウントファイル読み込み
-f = open("account.dat")
+f = open(scriptdir + "/account.dat")
 accounts = f.readlines()
 
 # tokenファイル読み込み
-f = open("token.dat")
+f = open(scriptdir + "/token.dat")
 token = f.readline().rstrip("\n")
 
-#以下は接続するiCloudのアカウントとパスワードを記載します。
+# PyiCloudServec 初期化
 api = PyiCloudService(accounts[0].rstrip("\n"), accounts[1].rstrip("\n"))
 
 # 指定日のイベントデータを取得
@@ -71,7 +75,7 @@ if __name__ == '__main__':
 
     # 基準日
     targetdate = date.today()
-    #targetdate = datetime(2017,2,11)
+    #targetdate = datetime(2017,1,31)
 
     # 明日のイベントリストを取得
     targeteventdata = getEventList( targetdate + timedelta(days=1))
