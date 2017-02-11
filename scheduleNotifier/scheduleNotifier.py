@@ -2,6 +2,7 @@
 from pyicloud import PyiCloudService
 from datetime import datetime
 from datetime import date
+from datetime import time
 from datetime import timedelta
 import os
 import requests
@@ -74,7 +75,7 @@ def notifyToLINE( message ):
 if __name__ == '__main__':
 
     # 基準日
-    targetdate = date.today()
+    targetdate = datetime.combine( date.today(), time() )
     #targetdate = datetime(2017,1,31)
 
     # 明日のイベントリストを取得
