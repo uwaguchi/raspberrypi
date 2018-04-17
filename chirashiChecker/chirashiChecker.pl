@@ -23,15 +23,13 @@ foreach my $curdat( @config ){
     # チラシの日付を取得
     if( $res =~ /<h2 class=\"chirashi_info_title\">([0-9]+)月([0-9]+)日.*<\/h2>/ ){
         # 年
-        # とりあえずだまって2017（そのうち直すべし）
-        $y = "2017";
+        chomp( $y = `date +%Y`);
         # 月
         $m = sprintf("%02d", $1);
         # 日
         $d = sprintf("%02d", $2);
         # 合体
         $date = $y.$m.$d;
-
         # 設定に書かれた日付より新しいかチェック
         if( $date > $$curdat[0] ){
             # 新しかったら日付を更新
