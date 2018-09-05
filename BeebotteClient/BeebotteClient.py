@@ -4,6 +4,8 @@ import os
 import json
 import paho.mqtt.client as mqtt
 
+import sendirkit
+
 # 接続時の処理
 def on_connect(client, userdata, flags, rc):
     print("connected. result code: " + str(rc))
@@ -12,8 +14,20 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("received message. topic: " + msg.topic + ", payload: " + str(msg.payload))
 
+    # payloadのdata要素を取得
+    data = json.loads(msg.payload)["data"]
+    print(data)
+
+    # ファイル名にしてIRkitにリクエスト送信
+    if sendirkit.send(data + ".json") == True:
+        print("request OK.")
+    else:
+        print("request Error.")
+    return
+
 # メイン
 if __name__ == '__main__':
+
     # 自分自身のディレクトリ
     scriptdir = os.path.dirname(os.path.abspath(__file__))
 
