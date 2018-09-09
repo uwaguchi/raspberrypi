@@ -3,16 +3,17 @@
 import os
 import json
 import paho.mqtt.client as mqtt
+import datetime
 
 import sendirkit
 
 # 接続時の処理
 def on_connect(client, userdata, flags, rc):
-    print("connected. result code: " + str(rc))
+    print(datetime.datetime.now().strftime("[%Y/%m/%d %H:%M:%S] ") + "connected. result code: " + str(rc))
 
 # メッセージ受信時の処理
 def on_message(client, userdata, msg):
-    print("received message. topic: " + msg.topic + ", payload: " + str(msg.payload))
+    print(datetime.datetime.now().strftime("[%Y/%m/%d %H:%M:%S] ") + "received message. topic: " + msg.topic + ", payload: " + str(msg.payload))
 
     # payloadのdata要素を取得
     data = json.loads(msg.payload)["data"]
@@ -20,9 +21,9 @@ def on_message(client, userdata, msg):
 
     # ファイル名にしてIRkitにリクエスト送信
     if sendirkit.send(data + ".json") == True:
-        print("request OK.")
+        print(datetime.datetime.now().strftime("[%Y/%m/%d %H:%M:%S] ") + "request OK.")
     else:
-        print("request Error.")
+        print(datetime.datetime.now().strftime("[%Y/%m/%d %H:%M:%S] ") + "request Error.")
     return
 
 # メイン
