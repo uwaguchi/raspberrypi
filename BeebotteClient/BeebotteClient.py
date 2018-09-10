@@ -7,9 +7,14 @@ import datetime
 
 import sendirkit
 
+# トピック
+g_topic = ""
+
 # 接続時の処理
 def on_connect(client, userdata, flags, rc):
     print(datetime.datetime.now().strftime("[%Y/%m/%d %H:%M:%S] ") + "connected. result code: " + str(rc))
+    # 保存したトピックをsubscribe
+    client.subscribe(g_topic)
 
 # メッセージ受信時の処理
 def on_message(client, userdata, msg):
@@ -36,6 +41,9 @@ if __name__ == '__main__':
     f = open(scriptdir + "/config.json")
     conf = json.load(f)
 
+    # トピックをグローバル変数に保存
+    g_topic = conf["topic"]
+
     # Beebotte MQTT ブローカーに接続
     client = mqtt.Client()
     client.on_connect = on_connect
@@ -43,6 +51,5 @@ if __name__ == '__main__':
     client.username_pw_set('token:%s' % conf["token"])
     client.tls_set(conf["cacert"])
     client.connect(conf["host"], int(conf["port"]))
-    client.subscribe(conf["topic"])
     client.loop_forever()
 
